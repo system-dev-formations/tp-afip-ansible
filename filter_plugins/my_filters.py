@@ -31,7 +31,7 @@ class FilterModule(object):
         type_format = ['swap','ext4','xfs','dos']
         for i in list_device:
             if 'Disk /' in i:
-            disk.append(i)
+                disk.append(i)
         for v in disk:
             inter = v.split()
             cmd = "lsblk -f {}".format(inter[1][:-1])
