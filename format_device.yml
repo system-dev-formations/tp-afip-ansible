@@ -7,6 +7,10 @@
     become: true
     command: fdisk -l
     register: get_disk
-  - name: debug
-    debug:
-      msg: " device : {{ get_disk.stdout | get_device }}"
+  - name: get device 
+    vars:
+        device: "{{ get_disk.stdout | get_device }}"   
+    shell: echo {{ item }}
+    loop: "{{ device }}"
+      
+    
