@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from natsort import natsorted
+import subprocess
 import re
 
 class FilterModule(object):
@@ -7,6 +8,7 @@ class FilterModule(object):
         return {
             'a_filter': self.a_filter,
             'latest_version': self.latest_version
+            'get_device': self.get_device
         }
     def a_filter(self, a_variable):
         a_new_variable = a_variable + ' CRAZY NEW FILTER'
@@ -22,6 +24,7 @@ class FilterModule(object):
                 if m.group(0):
                     break
         return list_of_version
-
+     def get_device(self, get_device):
+        return get_device
 
 
