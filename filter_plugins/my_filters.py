@@ -7,7 +7,7 @@ class FilterModule(object):
     def filters(self):
         return {
             'a_filter': self.a_filter,
-            'latest_version': self.latest_version
+            'latest_version': self.latest_version,
             'get_device': self.get_device
         }
     def a_filter(self, a_variable):
@@ -24,7 +24,27 @@ class FilterModule(object):
                 if m.group(0):
                     break
         return list_of_version
-     def get_device(self, get_device):
-        return get_device
+    def get_device(self, list_device):
+        disk = []
+        device = []
+        flag = 0
+        type_format = ['swap','ext4','xfs','dos']
+        for i in list_device:
+            if 'Disk /' in i:
+            disk.append(i)
+        for v in disk:
+            inter = v.split()
+            cmd = "lsblk -f {}".format(inter[1][:-1])
+            #print(cmd)
+            check_blk = str(subprocess.check_output(cmd,shell=True))
+            #print(check_blk)
+            for t in type_format:
+                if t in check_blk:
+                    flag = 1
+            if flag == 0:
+               device.append(inter[1][:-1])
+               flag = 0
+            flag = 0
+        return device 
 
 
