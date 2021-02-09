@@ -16,3 +16,11 @@
       shell: echo {{ item }}
       when: device is defined 
       loop: "{{ device }}"
+    - name: Format disk
+      vars:
+        device: "{{ get_disk.stdout | get_device }}"
+      filesystem:
+        fstype: ext4
+        dev: "{{ item }}"
+      when: device is defined
+      loop: "{{ device }}"
